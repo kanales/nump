@@ -1,0 +1,9 @@
+# VS Code
+.vscode
+
+# Build folders
+bin/
+build/
+
+# Mac
+.DS_Store
