@@ -218,7 +218,7 @@ std::string Matrix::str() const
 
     for (size_t i = 0; i < this->rows; i++)
     {
-        ss << c; c = "\n {";
+        ss << c; c = ",\n {";
         ss << (*this)(i, 0);
         for (size_t j = 1; j < this->cols; j++)
         {

@@ -4,6 +4,7 @@
 # Build folders
 bin/
 build/
+lib/
 
 # Mac
 .DS_Store
