@@ -5,11 +5,14 @@
 #include <initializer_list>
 #include <math.h>
 
+using namespace npr;
+
 Matrix::Matrix()
     : data(std::make_shared<std::vector<double>>())
 {
     this->cols = 0;
     this->rows = 0;
+    this->trans = false;
 }
 
 Matrix::Matrix(size_t rows, size_t cols)
@@ -18,6 +21,7 @@ Matrix::Matrix(size_t rows, size_t cols)
     this->data->resize(cols * rows);
     this->cols = cols;
     this->rows = rows;
+    this->trans = false;
 }
 
 Matrix::Matrix(size_t rows, size_t cols, std::vector<double> &other_data)
@@ -26,6 +30,7 @@ Matrix::Matrix(size_t rows, size_t cols, std::vector<double> &other_data)
     assert(data->size() == cols * rows);
     this->cols = cols;
     this->rows = rows;
+    this->trans = false;
 }
 
 Matrix::Matrix(Matrix &other)
@@ -37,6 +42,7 @@ Matrix::Matrix(Matrix &other)
         this->data->begin());
     this->rows = other.rows;
     this->cols = other.cols;
+    this->trans = false;
 }
 Matrix::Matrix(Matrix &&other)
     : data(std::make_shared<std::vector<double>>())
@@ -44,6 +50,7 @@ Matrix::Matrix(Matrix &&other)
     std::swap(this->data, other.data);
     this->rows = other.rows;
     this->cols = other.cols;
+    this->trans = false;
 }
 
 Matrix &Matrix::operator=(Matrix &other)
@@ -85,16 +92,32 @@ Matrix Matrix::reshape(size_t rows, size_t cols) const
 
 double Matrix::sum() const 
 {
+    double acc = 0;
+    for (auto it = this->data->begin();
+         it != this->data->end(); it++)
+    {
+        acc += *it;
+    }
 
+    return acc;
+}
+
+Matrix Matrix::t() const
+{
+    Matrix out(this->cols, this->rows, *this->data);
+    out.trans = true;
+    return out;
 }
 
 double &Matrix::operator()(size_t i, size_t j)
 {
+    if (trans) std::swap(i,j);
     return (*this->data)[i + this->rows * j];
 }
 
 const double &Matrix::operator()(size_t i, size_t j) const
 {
+    if (trans) std::swap(i,j);
     return (*this->data)[i + this->rows * j];
 }
 
@@ -191,16 +214,19 @@ Matrix Matrix::operator*(const Matrix &other) const
 std::string Matrix::str() const
 {
     std::stringstream ss;
+    std::string c = "{{";
 
     for (size_t i = 0; i < this->rows; i++)
     {
-        ss << "[ ";
-        for (size_t j = 0; j < this->cols; j++)
+        ss << c; c = "\n {";
+        ss << (*this)(i, 0);
+        for (size_t j = 1; j < this->cols; j++)
         {
-            ss << (*this)(i, j) << ' ';
+            ss << ", " << (*this)(i, j);
         }
-        ss << ']' << std::endl;
+        ss << '}';
     }
+    ss << '}' << std::endl;
 
     return ss.str();
 }

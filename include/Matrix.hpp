@@ -6,6 +6,7 @@
 #endif
 
 #include <vector>
+namespace npr {
 
 class Matrix
 {
@@ -13,7 +14,7 @@ class Matrix
     std::shared_ptr<std::vector<double>> data;
     size_t rows;
     size_t cols;
-
+    bool trans;
   public:
     Matrix();
     Matrix(size_t rows, size_t cols);
@@ -27,17 +28,21 @@ class Matrix
     Matrix reshape(size_t rows, size_t cols) const;
     Matrix product(const Matrix &other) const;
     double sum() const;
+    Matrix t() const;
 
     Matrix operator+ (const Matrix &other) const;
     Matrix operator* (const Matrix &other) const;
     Matrix operator- (const Matrix &other) const;
     bool   operator==(const Matrix &other) const;
-    double &operator ()(size_t i, size_t j);
-    const double &operator()(size_t i, size_t j) const;
+    inline double &operator ()(size_t i, size_t j);
+    inline const double &operator()(size_t i, size_t j) const;
+    
 
     std::string str() const;
 };
 
-std::ostream &operator<<(std::ostream &os, Matrix const &m);
+}
+
+std::ostream &operator<<(std::ostream &os, npr::Matrix const &m);
 
 #endif
