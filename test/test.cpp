@@ -55,6 +55,7 @@ TEST(foo, luFactorization) {
     auto [L, U] = npr::lu(A);
     EXPECT_EQ(A, L*U);
 }
+
 int main(int argc, char *argv[]) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

@@ -29,8 +29,11 @@ class Matrix
     Matrix product(const Matrix &other) const;
     double sum() const;
     Matrix t() const;
+    double vdot(const Matrix &other) const;
     size_t rows() const;
     size_t cols() const;
+    Matrix row(size_t i) const;
+    Matrix col(size_t j) const;
 
     Matrix operator+ (const Matrix &other) const;
     Matrix operator* (const Matrix &other) const;
@@ -42,6 +45,7 @@ class Matrix
     const double &operator()(size_t k) const;
     
     std::string str() const;
+    size_t len() const;
 };
 
 Matrix zeros(size_t rows, size_t cols);

@@ -31,7 +31,7 @@ Matrix::Matrix(size_t rows, size_t cols, std::vector<double> &other_data)
     this->_rows = rows;
     this->trans = false;
 }
-#include <iostream>
+
 Matrix::Matrix(const Matrix &other)
     : data(std::make_shared<std::vector<double>>())
 {
@@ -105,6 +105,35 @@ Matrix Matrix::t() const
     Matrix out(this->_cols, this->_rows, *this->data);
     out.trans = true;
     return out;
+}
+
+double Matrix::vdot(const Matrix &other) const {
+    double acc = 0;
+    for (int i = 0; i <= this->len(); i++) {
+        acc += (*this->data)[i] * (*other.data)[i];
+    }
+    return acc;
+}
+
+Matrix Matrix::row(size_t i) const {
+    Matrix r(1,this->_cols);
+    
+    for (int j = 1; j <= this->_cols; j++) {
+        r(j) = this->operator()(i,j);
+    }
+
+    return r;
+}
+#include <iostream>
+Matrix Matrix::col(size_t j) const {
+    Matrix r(this->_rows,1);
+    
+    for (int i = 1; i <= this->_cols; i++) {
+        
+        r(i) = this->operator()(i,j);
+    }
+
+    return r;
 }
 
 double &Matrix::operator()(size_t i, size_t j)
@@ -279,6 +308,10 @@ Matrix ones(size_t rows, size_t cols)
     }
 
     return m;
+}
+
+size_t Matrix::len() const {
+    return this->data->size();
 }
 
 std::ostream &operator<<(std::ostream &os, Matrix const &m)
