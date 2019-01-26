@@ -6,7 +6,7 @@ A shitty numerical programming library made for `Numerical Programming` at Techn
 
 If for some reason you are still interested in using this library (why?), there are some things you should know.
 
-### Matrices
+### Matrices
 
 Mostly because I still have PSTD from using raw pointers in C for representing matrices at Universitat de Barcelona (yes, raw pointers), I implemented a nice class that represents a matrix together with a bunch of helpful methods, including: addition, product, equality, etc. OK, now let's go quickly over some things that should be kept in mind.
 
