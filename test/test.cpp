@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "Matrix.hpp"
+#include "solve.hpp"
 
 TEST(foo, matrixConstruction) {
     int cols = 3;
@@ -46,6 +47,14 @@ TEST(foo, matrixAddition) {
     }
 }
 
+TEST(foo, luFactorization) {
+    npr::Matrix A 
+    {{1,1,1},
+     {1,2,2},
+     {1,2,3}};
+    auto [L, U] = npr::lu(A);
+    EXPECT_EQ(A, L*U);
+}
 int main(int argc, char *argv[]) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
