@@ -13,9 +13,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 file(GLOB SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 list(REMOVE_ITEM SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 
-add_library(numplib ${SRC_FILES})
+add_library(numpr ${SRC_FILES})
 add_executable(Foo ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
-target_link_libraries(Foo numplib)
+target_link_libraries(Foo numpr)
 
 # add_subdirectory(packages/googletest)
 # enable_testing()
