@@ -1,6 +1,6 @@
 # NUMP
 
-A shitty numerical programming library made for `Numerical Programming` at Technische Universität München.
+A small (and pretty bad to be honest) numerical programming library made for `Numerical Programming` at Technische Universität München.
 
 ## Notes
 
